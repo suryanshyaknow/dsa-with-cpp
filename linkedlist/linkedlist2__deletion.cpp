@@ -1,10 +1,6 @@
 #include <iostream>
 using namespace std;
 
-/* Node: A block containing two sub-blocks outta which one is to contain the data and other is to store the
-address of the next node.
-*/
-
 class Node
 {
 public:
@@ -12,33 +8,19 @@ public:
     Node *next; // as it's gonna store the address of the type Node itself
 };
 
-void allaboutHead(Node **head_ref)
-{
-    cout << "\nhead_ref (address stored): " << head_ref << endl;
-    cout << "*head_ref: (value at the address stored): " << *head_ref << "\n" << endl;
-    // cout << "**head_ref: " << **head_ref << endl;
-}
-
 void push(Node **head_ref, int new_val)
-// head is kinda default node that points to the null.
-// head_ref is the reference of the head i.e. points to the head i.e. contains the address of the head.
-// *head_ref contains the address of the head.
-// **head_ref is the pointer that points to the address of the pointer head_ref.
-{
-    Node *new_node = new Node();  // dynamically created a node using pointer.
-    new_node->data = new_val;     // (*new_node).data
-    new_node->next = (*head_ref); // (*new_node).next // Now it's pointing towards whatever the head was pointing to.
 
+{
+    Node *new_node = new Node();
+    new_node->data = new_val;
+    new_node->next = (*head_ref);
     (*head_ref) = new_node;
     // now make the head points towards the newz-node, basic shit!
 }
-// if the head was pointing towards null, new_node will point towards null,
-// and if the head's pointing towards some next_val, then likewise the new_node is gonna point to the same.
-
 
 void insertAt(Node *prev_node, int new_val)
 {
-    if (prev_node == NULL) // what if prev_node->next == NULL
+    if (prev_node == NULL)
     {
         cout << "Previous Node seems to be NULL!";
         return;
@@ -92,27 +74,49 @@ void printLinkedlist(Node *node)
     }
     cout << node->data << endl; // because we gotta print the value at the last node too.
     return;
+}
 
+void deleteNode(Node **head_ref, int key)
+// key is the val contained by the node to be deleted
+{
+    Node *temp = *head_ref; // address of head
+    // temp is to store the address of the data that needs to be deleted
+    // eventually by looping we'll get to it.
+    // right now at this exact moment, temp is storing the address of the head
+    Node *prev;
+
+    // Case 1: When the head itself contains the `key`
+    if (temp != NULL && temp->data == key)
+    {
+        // Note: If the head's gonna be deleted, we gotta change the head.
+        *head_ref = temp->next;
+        free(temp);
+        return;
+    }
+    // Case 2: Traversing to find the key
+    while (temp != NULL && temp->data != key)
+    {
+        prev = temp; // keep updating the prev
+        temp = temp->next;
+    }
+    // Case 3: Head contains null
+    if (temp == NULL)
+    {
+        cout << "The linkedlist doesn't even exist!" << endl;
+        return;
+    }
+    // step 1: Change the next of the prev
+    prev->next = temp->next;
+    // step 2: free up the memory of the temp
+    free(temp);
 }
 
 int main()
 {
     Node *head = NULL;
     cout << head << endl;
-    // cout << head->data << endl;
-    // cout << head->next << endl;
-
-    allaboutHead(&head);
 
     push(&head, 26);
-    // head is itself an address essentially, and we are even passing its address
-    // so its obvious pointer of pointer will do the needful
-
-    // cout << "head: " << head << endl;
-    // cout << "&head: " << &head << endl;
-    // cout << "*head: " << *head << endl;
-    // cout << "head->data: " << head->data << endl;
-    // cout << "head->next: " << head->next << endl;
 
     append(&head, 11);
     append(&head, 1999);
@@ -123,19 +127,29 @@ int main()
     append(&head, 8);
     append(&head, 1976);
 
-    cout << "\n(head->next)->data: " << (head->next)->data << endl;
-    cout << "(head->next)->next->data: " << (head->next)->next->data << endl;
-    cout << "(head->next)->next->next->data: "
-         << (head->next)->next->next->data << endl;
-
     push(&head, 2004);
-
     printLinkedlist(head);
-    
+
     // Inserting a value at a certain position
     insertAt(head->next->next, 1990);
 
     printLinkedlist(head);
+
+    // Deleting a node
+    // cout << "\nAfter removing 2004 i.e at head: ";
+    // deleteNode(&head, 2004);
+    // printLinkedlist(head);
+
+    // cout << head->data << endl;
+
+    cout << "\nAfter removing 1999 i.e. somewhere in the middle: ";
+    deleteNode(&head, 1999);
+    printLinkedlist(head);
+    
+    // cout << "\nAfter removing 1976 i.e. at the last: ";
+    // deleteNode(&head, 1999);
+    // printLinkedlist(head);
+
 
     return 0;
 }
