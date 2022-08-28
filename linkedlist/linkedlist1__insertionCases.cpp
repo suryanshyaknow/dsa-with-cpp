@@ -3,6 +3,8 @@ using namespace std;
 
 /* Node: A block containing two sub-blocks outta which one is to contain the data and other is to store the
 address of the next node.
+
+HEAD: Reference to the first node. Not to be treated as the node itself.
 */
 
 class Node

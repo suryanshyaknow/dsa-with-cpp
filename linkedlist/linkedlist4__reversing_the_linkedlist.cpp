@@ -138,6 +138,45 @@ void deleteEntireList(Node **head_ref)
     *head_ref = NULL;
 }
 
+void countNodes(Node *head)
+{
+    int count = 0;
+    Node *trav = head;
+
+    if (trav == NULL)
+    {
+        cout << "The linkedlist doesn't contain any nodes yet!" << endl;
+        return;
+    }
+
+    while (trav != NULL)
+    {
+        trav = trav->next;
+        count += 1;
+    }
+    cout << "The number of the nodes in the desired linkedlist: " << count << endl;
+}
+
+void reverseList(Node *head)
+{
+    Node *current = head;
+    Node *prev = NULL;
+    Node *next = NULL;
+
+    while (current != NULL)
+    {
+        next = current->next;
+        current->next = prev; // Arrow reversed!
+
+        // Now, updation:
+        prev = current;
+        current = next;
+    }
+
+    // Last step: Updating the head
+    head = prev; // since, prev is now our first node; and current and next are pointing towards NULL.
+}
+
 int main()
 {
     Node *head = NULL;
@@ -153,32 +192,17 @@ int main()
     append(&head, 17);
     append(&head, 8);
     append(&head, 1976);
+    append(&head, 2011);
+    append(&head, 2004);
+    append(&head, 10);
+    append(&head, 18);
+    append(&head, 12);
 
-    push(&head, 2004);
     printLinkedlist(head);
+    // countNodes(head);
 
-    // Inserting a value at a certain position
-    insertAt(head->next->next, 1990);
-
-    printLinkedlist(head);
-
-    // Deleting a node
-    // cout << "\nAfter removing 2004 i.e at head: ";
-    // deleteNode(&head, 2004);
-    // printLinkedlist(head);
-
-    // cout << head->data << endl;
-
-    // cout << "\nAfter removing 1999 i.e. somewhere in the middle: ";
-    // deleteNode(&head, 1999);
-    // printLinkedlist(head);
-
-    // cout << "\nAfter removing 1976 i.e. at the last: ";
-    // deleteNode(&head, 1999);
-    // printLinkedlist(head);
-
-    deleteEntireList(&head);
-    printLinkedlist(head);
+    reverseList(head);
+    
 
     return 0;
 }
