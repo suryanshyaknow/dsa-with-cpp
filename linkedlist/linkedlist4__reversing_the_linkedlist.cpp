@@ -172,9 +172,12 @@ void reverseList(Node *head)
         prev = current;
         current = next;
     }
-
     // Last step: Updating the head
     head = prev; // since, prev is now our first node; and current and next are pointing towards NULL.
+
+    
+    printLinkedlist(head);
+    cout << head << endl;
 }
 
 int main()
@@ -198,11 +201,14 @@ int main()
     append(&head, 18);
     append(&head, 12);
 
-    printLinkedlist(head);
+    // printLinkedlist(head);
     // countNodes(head);
-
+    cout << "before reverse, head: " << head << endl;
     reverseList(head);
-    
+
+    // head's not being able to update itself outside the function
+    cout << "after reverse, head: " << head << endl;
+    printLinkedlist(head);
 
     return 0;
 }

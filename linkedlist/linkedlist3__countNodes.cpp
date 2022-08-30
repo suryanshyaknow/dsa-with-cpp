@@ -182,7 +182,7 @@ int main()
     // countNodes(head);
 
     // deleting the linkedlist
-    deleteEntireList(&head);
+    // deleteEntireList(&head);?
 
     // now counting the nodes
     printLinkedlist(head);
