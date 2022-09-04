@@ -5,7 +5,6 @@ using namespace std;
 /* Given an array of positive integers. All numbers occur an even number of times except one number which occurs
 an odd number of times.
 */
-//************************************ Kadane's Alogorithm ******************************************************
 
 int oddTimesOut(int a[], int len)
 {

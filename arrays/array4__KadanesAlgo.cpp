@@ -5,6 +5,7 @@ using namespace std;
 /* Write an efficient program to find the sum of the contiguous subarray within a one-dimensional array of numbers
 that has the largest sum.
 */
+//************************************ Kadane's Alogorithm ******************************************************
 
 int maxSubArraySum(int a[], int len)
 {   
