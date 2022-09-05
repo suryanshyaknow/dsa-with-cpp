@@ -9,6 +9,7 @@ using namespace std;
 --> Search
 */
 // ************************************ Insertion: *******************************************************
+// ************************************ Deletion:  *******************************************************
 
 class myArr
 {
@@ -22,7 +23,8 @@ public:
     void display(myArr *);
     void display_address(myArr *);
     void setVal(myArr *);
-    int insertAt(myArr*, int, int);
+    int insertAt(myArr *, int, int);
+    int deleteAt(myArr *, int);
 };
 
 // *a is the pointer that points to the first element of the array
@@ -74,13 +76,29 @@ int myArr::insertAt(myArr *a, int at, int insertion)
         return -1;
     }
     // insertion
-    for (int i = a->used_size-1; i >= at; i--)
+    for (int i = a->used_size - 1; i > at; i--)
     {
         /* code */
-        a->ptr[i+1] = a->ptr[i];
+        a->ptr[i + 1] = a->ptr[i];
     }
     a->ptr[at] = insertion;
-    a->used_size+=1;
+    a->used_size += 1;
+    return 1;
+}
+
+int myArr::deleteAt(myArr *a, int at)
+{
+    if (at >= a->used_size || at >= a->total_size)
+    {
+        cout << "..beyond the scope of the size of the array!" << endl;
+        return -1;
+    }
+    for (int i = at; i <= a->used_size; i++)
+    {
+        /* code */
+        a->ptr[i] = a->ptr[i + 1];
+    }
+    a->used_size -= 1;
     return 1;
 }
 
@@ -95,10 +113,16 @@ int main()
     // marks.display_address(&marks);
     // --> Can't use the above method carelessly because it organically changes the pointer's location.
 
-    marks.insertAt(&marks, 4, 1972);
-    cout << "\nDisplaying the array after insertion: ";
-    marks.display(&marks);
+    // Insertion:
+    // marks.insertAt(&marks, 4, 1972);
+    // cout << "\nDisplaying the array after insertion: ";
+    // marks.display(&marks);
 
+    // Deletion:
+    // marks.deleteAt(&marks, marks.used_size - 4);
+    marks.deleteAt(&marks, 0);
+    cout << "\nAfter deletion: " << endl;
+    marks.display(&marks);
 
     return 0;
 }
