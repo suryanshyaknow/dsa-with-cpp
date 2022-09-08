@@ -20,11 +20,29 @@ public:
         {
             if (nums[i] == val)
             {
-                nums.erase(nums.begin()+i);
+                nums.erase(nums.begin() + i);
                 continue;
             }
             i++;
         }
+        return nums.size();
+    }
+    int removeEle(vector<int> &nums, int val)
+    {
+        int ind = 0;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums[i] == val)
+            {
+                continue;
+            }
+            else
+            {
+                nums[ind] = nums[i];
+                ind++;
+            }
+        }
+        nums.erase(nums.begin() + ind, nums.end());
         return nums.size();
     }
 };
