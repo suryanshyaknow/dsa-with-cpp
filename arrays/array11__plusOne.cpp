@@ -8,7 +8,28 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> plusOne(vector<int> &digits)
+    vector<int> plus_One(vector<int> &D)
+    {
+        for (int i = D.size() - 1; i >= 0; i--)
+        {
+            /* code */
+            if (D[i] != 9)
+            {
+                D[i] += 1;
+                return D;
+            }
+            else
+            {
+                D[i] = 0;
+            }
+        }
+        D[0] = 1;
+        D.push_back(0);
+
+        return D;
+    }
+
+    vector<int> plusOne(vector<int> &digits) // FAILED MISERABLY FOR BIG INTEGERS!
     {
         // making the vector's elements as an integer
         // and increementing it by one
@@ -55,10 +76,10 @@ public:
 
 int main()
 {
-    vector<int> digits = {6, 1, 4, 5, 3, 9, 0, 1, 9, 5, 1, 8, 6, 7, 0, 5, 5, 4, 3};
+    vector<int> digits = {4, 3, 2, 1};
     Solution sol;
 
-    vector<int> nums = sol.plus_one(digits);
+    vector<int> nums = sol.plus_One(digits);
     for (int i = 0; i < nums.size(); i++)
     {
         /* code */
