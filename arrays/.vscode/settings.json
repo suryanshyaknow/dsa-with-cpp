@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "One Monokai Theme",
+  "workbench.colorTheme": "GitHub Dark",
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -32,6 +32,8 @@
   "files.associations": {
     "iostream": "cpp",
     "random": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "ostream": "cpp",
+    "unordered_map": "cpp"
   }
 }
