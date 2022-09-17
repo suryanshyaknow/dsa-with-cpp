@@ -13,33 +13,37 @@ Find the majority element in the array.
 class Solution
 {
 public:
-    int majorityElement(vector<int> &nums)
+    int majorityElement(vector<int> &nums) // time: O(nlog(n) + n) // n to be discarded!
     {
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end()); // time: O(nlog(n))
 
         int mtimes = nums.size() / 2;
         cout << "num of occurences to be a majority element: " << mtimes << endl;
         int count = 0;
         int ind = 0;
 
-        if (nums.size()==1)return nums[0];
-        
-        for (int i = 0; i < nums.size(); i++)
+        // if the array contains a single ele then return the 0th index
+        if (nums.size() == 1)
+            return nums[0];
+
+        // after sorting...
+        // if the ele is same then keep the track of the count and keep updating it
+        //..the moment it becomes more than n/2, return the index of the element
+        for (int i = 0; i < nums.size(); i++) // time: n
         {
             if (nums[i] == nums[ind])
                 count += 1;
             else
             {
-                cout << "count of " << nums[i] << ": " << count << endl;
-                if (count >= mtimes)
-                    return nums[i];
                 ind = i;
                 count = 1;
             }
+            if (count > mtimes)
+                return nums[i];
         }
         return -1;
     }
-    int majorityElement_ii(vector<int> &nums)
+    int majorityElement_ii(vector<int> &nums) // space: O(n), time: O(n)
     {
         int mtimes = nums.size() / 2;
         unordered_map<int, int> dict;
@@ -63,7 +67,7 @@ public:
                 if (nums[j] == nums[i])
                     count += 1;
             }
-            if (count >= mtimes)
+            if (count > mtimes)
                 return nums[i];
         }
         return -1;
@@ -73,7 +77,8 @@ public:
 int main()
 {
     // vector<int> nums = {2, 2, 1, 1, 1, 2, 2};
-    vector<int> nums = {1};
+    // vector<int> nums = {1};
+    vector<int> nums = {2, 2};
 
     Solution sol;
     cout << "majority element: " << sol.majorityElement(nums) << endl;
